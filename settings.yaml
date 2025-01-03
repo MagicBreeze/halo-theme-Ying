@@ -1,0 +1,148 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: theme-Ying-setting
+spec:
+  forms:
+    - group: layout
+      label: 基础样式设置
+      formSchema:
+        - $formkit: select
+          name: header_background_type
+          id: header_background_type
+          key: header_background_type
+          label: 网站背景
+          value: manual
+          options:
+            - label: 纯色
+              value: manual
+            - label: 图片
+              value: image
+            - label: 样式1
+              value: style1
+        - $formkit: color
+          if: "$get(header_background_type).value === manual"
+          name: header_background
+          id: header_background
+          key: header_background
+          label: 设置背景颜色
+          value: ffffff
+        - $formkit: attachment
+          if: "$get(header_background_type).value === image"
+          name: header_background_image
+          id: header_background_image
+          key: header_background_image
+          label: 网站背景图片
+        - $formkit: color
+          if: "$get(header_background_type).value === style1"
+          name: header_background_style1
+          id: header_background_style1
+          key: header_background_style1
+          label: 设置主题样式1背景颜色
+          value: ffffff
+        - $formkit: select
+          name: post_cover_set
+          id: post_cover_set
+          key: hpost_cover_set
+          label: 首页文章缩略图设置
+          value: off
+          options:
+            - label: 关闭
+              value: off
+            - label: 开启
+              value: open
+        - $formkit: select
+          name: web_font_set
+          id: web_font_set
+          key: web_font_set
+          label: 网站字体
+          value: defaultfont
+          options:
+            - label: 手动设置
+              value: manual
+            - label: 默认
+              value: defaultfont
+        - $formkit: text
+          if: "$get(web_font_set).value === manual"
+          name: web_font
+          id: web_font
+          key: web_font
+          label: 请填入字体链接
+        - $formkit: attachment
+          if: "$get(web_font_set).value === defaultfont"
+          name: web_font_default
+          id: web_font_default
+          key: web_font_default
+          label: 默认网站字体
+          value: "/themes/theme-Ying/assets/font/test.woff2"
+        - $formkit: select
+          name: header_cdn
+          id: header_cdn
+          key: header_cdn
+          label: CDN设置
+          value: local
+          options:
+            - label: 本地
+              value: local
+            - label: CDN链接
+              value: cdn
+        - $formkit: text
+          if: "$get(header_cdn).value === cdn"
+          name: header_cdn_link
+          id: header_cdn_link
+          key: header_cdn_link
+          label: 请填入CDN链接
+    - group: info_card
+      label: 信息面板
+      formSchema:
+        - $formkit: text
+          name: web_info_img
+          label: 个人头像
+        - $formkit: text
+          name: web_info_text
+          label: 个人签名
+          value: 相逢何必曾相识
+        - $formkit: text
+          name: web_info_bili
+          label: 请填入哔哩哔哩链接 
+        - $formkit: text
+          name: web_info_zhihu
+          label: 请填入知乎链接 
+        - $formkit: text
+          name: web_info_github
+          label: 请填入GitHub链接 
+    - group: footer_card
+      label: 页脚设置
+      formSchema:
+        - $formkit: text
+          name: footer_time
+          label: 建站日期
+          value: 2018
+        - $formkit: text
+          name: footer_icp
+          label: ICP备案链接
+        - $formkit: text
+          name: footer_ga
+          label: 公安备案链接
+    - group: equipment_card
+      label: 我的设备
+      formSchema:
+        - $formkit: repeater
+          name: features
+          max: 100
+          label: 具体内容
+          value: []
+          children:
+            - $formkit: text
+              name: title
+              label: 名称
+            - $formkit: text
+              name: link
+              label: 链接
+            - $formkit: attachment
+              name: image
+              label: 图片
+              placeholder: 尺寸 257px * 160px
+            - $formkit: text
+              name: description
+              label: 描述
