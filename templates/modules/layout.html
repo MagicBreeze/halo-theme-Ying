@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="html (title,content,head)">
+<head th:replace="~{modules/head}"></head>
+<body th:style="${theme.config.layout.header_background_type == 'manual' ? 'background-color: ' + theme.config.layout.header_background : 
+                  (theme.config.layout.header_background_type == 'image' ? 'background-image: url(' + theme.config.layout.header_background_image + '); background-size: cover; background-attachment: fixed;' : 
+                  'background-image: url(/themes/theme-Ying/assets/texture.png); background-repeat: repeat; background-color: ' + theme.config.layout.header_background_style1)}">
+<div th:replace="~{modules/nav}"></div>
+<div id="pjax-container">
+<th:block th:replace="${content}"/>
+<th:block th:replace="~{modules/footer}" />
+</div>
+<script th:src="${theme.config.layout.header_cdn == 'cdn' ? theme.config.layout.header_cdn_link + '/js/app.js' : '/themes/theme-Ying/assets/js/app.js'}"></script>
+</body>
+</html>
