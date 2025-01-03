@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = '相册 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
+<th:block th:fragment="content">
+    <div class="moment-content uk-animation-fade" itemprop="articleBody">
+        <th:block th:each="group : ${groups}">
+    <h2 th:text="${group.spec.displayName}"></h2>
+    <div class="photo-img-box">
+        <div th:each="photo : ${group.photos}" class="p-in-box">
+            <img class="p-in-img lazyload" 
+            src=""
+            srcset=""
+            th:data-src="${photo.spec.url}"
+            th:data-srcset="|${thumbnail.gen(photo.spec.url, 's')} 400w|"
+            sizes="(max-width: 1600px) 100vw, 1600px" th:alt="${photo.spec.displayName}">
+        </div>
+    </div>
+</th:block>
+    </div>
+</th:block>
+
+</html>

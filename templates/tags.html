@@ -1,0 +1,3 @@
+<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = '标签 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="post-content uk-animation-fade" itemprop="articleBody"><article>
+<h2>标签</h2>
+<ul><li th:each="tag : ${tags}"><a th:href="${tag.status.permalink}" th:text="|${tag.spec.displayName}(${tag.status.postCount})|" ></a></li></ul></article></div></th:block></html>

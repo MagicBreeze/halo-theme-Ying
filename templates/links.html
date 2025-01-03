@@ -1,0 +1,4 @@
+<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = '友链 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="post-content uk-animation-fade" itemprop="articleBody"><article><th:block th:each="group : ${groups}">  
+<h2>友情链接</h2>
+<div class="links"><div th:each="link : ${group.links}" :key="i" class="link-box"><div class="link-img-box"><img class="link-img"th:src="${link.spec.logo}" th:alt="${link.spec.displayName}" /></div><a class="link-img-a" th:href="${link.spec.url}" target="_blank"><p th:text="${link.spec.displayName}"></p><p th:text="${link.spec.description}"></p></a></div></div></th:block>
+</article><th:block th:replace="~{modules/comment :: comment(name=${pluginName},kind='Plugin',group='plugin.halo.run')}"></th:block></div></th:block></html>
