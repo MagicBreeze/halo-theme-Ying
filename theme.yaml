@@ -13,12 +13,12 @@ spec:
   displayName: Ying
   author:
     name: Ying
-    website: https://www.halo.run
+    website: https://skylan.cc/
   description: 一个简约而不简单的主题
-  logo: https://www.halo.run/logo
-  homepage: https://github.com/halo-sigs/theme-foo
-  repo: https://github.com/halo-sigs/theme-foo.git
-  issues: https://github.com/halo-sigs/theme-foo/issues
+  logo: https://upyun.breezecloud.cn/CDN/Ying/ico/logo.png
+  homepage: https://github.com/MagicBreeze/halo-theme-Ying
+  repo: https://github.com/MagicBreeze/halo-theme-Ying.git
+  issues: https://github.com/MagicBreeze/halo-theme-Ying/issues
   settingName: "theme-Ying-setting"
   configMapName: "theme-Ying-configMap"
   version: 1.0.1

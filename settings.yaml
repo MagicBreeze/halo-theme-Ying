@@ -91,7 +91,7 @@ spec:
           name: header_cdn_link
           id: header_cdn_link
           key: header_cdn_link
-          label: 请填入CDN链接
+          label: 填入CDN链接，食用方法：将主题下assets文件上传至你的COS、OSS或者其他CDN平台上，请确保该目录下所有文件皆被上传到位
     - group: info_card
       label: 信息面板
       formSchema:
@@ -127,7 +127,19 @@ spec:
     - group: equipment_card
       label: 我的设备
       formSchema:
+        - $formkit: select
+          name: myitem
+          id: myitem
+          key: myitem
+          label: 个人设备信息页
+          value: item_off
+          options:
+            - label: 关闭
+              value: item_off
+            - label: 开启
+              value: item_open
         - $formkit: repeater
+          if: $get(myitem).value === item_open
           name: features
           max: 100
           label: 具体内容
