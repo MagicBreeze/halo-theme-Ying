@@ -124,6 +124,14 @@ spec:
         - $formkit: text
           name: footer_ga
           label: 公安备案链接
+        - $formkit: text
+          label: 版权作者信息
+          name: footer_copyright_name
+          value: "Magic清风"
+        - $formkit: text
+          name: footer_copyright_url
+          label: 版权作者信息链接地址
+          value: "https://skylan.cc/"
     - group: equipment_card
       label: 我的设备
       formSchema:
