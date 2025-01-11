@@ -26,7 +26,7 @@
 - [X] [评论系统](https://github.com/halo-sigs/plugin-comment-widget)（插件）
 - [x] [友情链接](https://github.com/halo-sigs/plugin-links)（插件）
 - [x] [回忆相册](https://github.com/halo-sigs/plugin-photos)（插件）
-- [x] [代码高亮](https://github.com/halo-sigs/plugin-highlightjs)（插件）
+- [x] [个人装备](https://skylan.cc/item)（主题自带）
 
 ![image](https://github.com/user-attachments/assets/917e618f-c840-4c12-8466-f2a3ced7e87e)
 
@@ -34,7 +34,6 @@
 ## 后续计划
 
 - [ ] 优化动态瞬间、相册页面性能
-- [ ] 新增个人物品界面（working）
 - [ ] 待issues新增用户反馈
 
 ## 版权相关
