@@ -1,4 +1,21 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = ${post.spec.title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="post-content uk-animation-fade" itemprop="articleBody"><article class="prose !max-w-none p-4"th:classappend="${theme.config.post.content_size} + ' ' + ${theme.config.post.content_theme}">
-<h1 class="post-title" th:text="${post.spec.title}"></h1>
-<div class="meta"><span>[[${#dates.format(post.spec.publishTime,'MMMM dd, yyyy')}]] 作者: [[${post.spec.owner}]] 分类: <a th:each="category : ${post.categories}" th:href="@{${category.status.permalink}}" th:title="${category.spec.displayName}" th:text="${category.spec.displayName}"></a> 浏览: [[${post.stats.visit}]] 评论: [[${post.stats.comment}]]</span></div><th:block th:utext="${post.content.content}"> </th:block>
-<a th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}" th:title="${tag.spec.displayName}" th:text="|#${tag.spec.displayName}(${tag.status.postCount})|" class="tag"></a><div id="directory-content" class="directory-content"><nav class="toc js-toc"></nav></div><th:block th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}"></th:block></article></div></th:block></html>
+<!DOCTYPE html>
+<html th:replace="~{modules/layout :: html(title = ${post.spec.title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"
+      xmlns:th="https://www.thymeleaf.org">
+<th:block th:fragment="content">
+    <div class="post-content uk-animation-fade" itemprop="articleBody">
+        <article class="prose !max-w-none p-4" th:classappend="${theme.config.post.content_size} + ' ' + ${theme.config.post.content_theme}">
+            <h1 class="post-title" th:text="${post.spec.title}"></h1>
+            <div class="meta"><span>[[${#dates.format(post.spec.publishTime,'MMMM dd, yyyy')}]] 作者: [[${post.owner.displayName}]] 分类: <a
+                    th:each="category : ${post.categories}" th:href="@{${category.status.permalink}}" th:text="${category.spec.displayName}"
+                    th:title="${category.spec.displayName}"></a> 浏览: [[${post.stats.visit}]] 评论: [[${post.stats.comment}]]</span></div>
+            <th:block th:utext="${post.content.content}"></th:block>
+            <a class="tag" th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}"
+               th:text="|#${tag.spec.displayName}(${tag.status.postCount})|" th:title="${tag.spec.displayName}"></a>
+            <div class="directory-content" id="directory-content">
+                <nav class="toc js-toc"></nav>
+            </div>
+            <th:block th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}"></th:block>
+        </article>
+    </div>
+</th:block>
+</html>
