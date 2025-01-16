@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html th:replace="~{modules/layout :: html(title = '归档：' + ${author.spec.displayName} +  ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"
+<html th:replace="~{modules/layout :: html(title = '作者归档：' + ${author.spec.displayName} +  ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"
       xmlns:th="https://www.thymeleaf.org">
 <th:block th:fragment="content">
     <div class="cate-content uk-animation-fade" itemprop="articleBody">
         <article>
-            <h2>归档：[[${author.spec.displayName}]]</h2>
+            <h2>作者归档：[[${author.spec.displayName}]]</h2>
             <ul>
                 <li th:each="post : ${posts.items}">
                     <span class="articles_date_time" th:text="|${#dates.format(post.spec.publishTime,'YYYY/MM/dd')}|"></span>
