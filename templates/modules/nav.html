@@ -7,4 +7,4 @@
 <nav  class="nav" th:with="menu = ${menuFinder.getPrimary()}">
 <ul class="flat" th:with="menuItems = ${menu.menuItems}">
 <li class="active" th:each="menuItem : ${menuItems}"><a th:href="@{${menuItem.status.href}}"th:text="${menuItem.status.displayName}"th:target="${menuItem.spec.target?.value}"></a></li>
-<li class="active ico-right" th:if="${pluginFinder.available('PluginSearchWidget')}"><a href="javascript:SearchWidget.open()" title="搜索" class="test"><i class="ri-search-line"></i></a></li></ul></nav></div>
+<li class="active ico-right" th:if="${pluginFinder.available('PluginSearchWidget')}"><a href="javascript:SearchWidget.open()" title="搜索" class="test"><i class="ri-search-line"></i></a></li></ul></nav></div><div id="config-status" th:style="'display:none;'" th:data-post-time-set="${theme.config.layout.post_time_set}"></div>
