@@ -1,7 +1,6 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  # 此字段的值需要和主题文件夹名称一致，否则可能导致部分资源无法正常加载。
   name: theme-Ying
 spec:
   customTemplates:
@@ -21,8 +20,8 @@ spec:
   issues: https://github.com/MagicBreeze/halo-theme-Ying/issues
   settingName: "theme-Ying-setting"
   configMapName: "theme-Ying-configMap"
-  version: 1.0.1
+  version: 1.0.3
   requires: 2.0.0
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/MagicBreeze/halo-theme-Ying/blob/main/LICENSE"
+      url: "https://github.com/halo-sigs/theme-foo/blob/main/LICENSE"
