@@ -1,0 +1,18 @@
+apiVersion: v1alpha1
+kind: AnnotationSetting
+metadata:
+  generateName: annotation-setting-
+spec:
+  targetRef:
+    group: core.halo.run
+    kind: Link
+  formSchema:
+    - $formkit: "select"
+      name: "hide"
+      label: "是否隐藏"
+      value: "false"
+      options:
+        - value: "true"
+          label: 是
+        - value: "false"
+          label: 否
