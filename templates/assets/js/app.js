@@ -23,9 +23,18 @@ function init() {
       }
   });
 }
-
+function formatPostTimes() {
+    document.querySelectorAll('.time,.ex-time').forEach(function(timeElement) {
+        var date = new Date(timeElement.getAttribute('data-date'));
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDate = date.toLocaleDateString('en-US', options);
+        timeElement.textContent = formattedDate;
+    });
+}
 function initPageElements() {
-  hljs.highlightAll()
+  hljs.highlightAll();
+  hljsln.initLineNumbersOnLoad();
+  hljs.initCopyButtonOnLoad();
   const tocElement = document.querySelector('.toc');
   if (tocElement) {
       tocbot.init({
@@ -89,6 +98,10 @@ document.addEventListener("pjax:success", function () {
   initPageElements();
   initLazyLoad();
   updateFooterYear();
+  const configStatus = document.getElementById('config-status');
+    if (configStatus && configStatus.dataset.postTimeSet === 'open') {
+        formatPostTimes();
+    }
 });
 
 
@@ -96,5 +109,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!hasContentLoaded) {
       hasContentLoaded = true;
       initPageElements();
+      const configStatus = document.getElementById('config-status');
+        if (configStatus && configStatus.dataset.postTimeSet === 'open') {
+            formatPostTimes();
+        }
   }
 });
