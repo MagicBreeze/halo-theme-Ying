@@ -43,13 +43,24 @@ spec:
         - $formkit: select
           name: post_cover_set
           id: post_cover_set
-          key: hpost_cover_set
+          key: post_cover_set
           label: 首页文章缩略图设置
           value: off
           options:
             - label: 关闭
               value: off
             - label: 开启
+              value: open
+        - $formkit: select
+          name: post_time_set
+          id: post_time_set
+          key: post_time_set
+          label: 文章发布时间格式[中/英]（默认中式）
+          value: off
+          options:
+            - label: 中式[九月 24, 2024]
+              value: off
+            - label: 英式[September 24, 2024]
               value: open
         - $formkit: select
           name: web_font_set
