@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:replace="~{modules/layout :: html(title = '作者归档：' + ${author.spec.displayName} +  ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"
+xmlns:th="https://www.thymeleaf.org">
+<th:block th:fragment="content">
+    <div class="cate-content uk-animation-fade" itemprop="articleBody">
+        <article>
+            <h2>作者归档：[[${author.spec.displayName}]]</h2>
+            <ul>
+                <li th:each="post : ${posts.items}">
+                    <span class="articles_date_time" th:text="|${#dates.format(post.spec.publishTime,'YYYY/MM/dd')}|"></span>
+                    <a class="a-archives" th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+                </li>
+            </ul>
+            <ul class="index-pagination"
+                th:if="${posts.hasPrevious() || posts.hasNext()}">
+                <li class="page-item page-previous"
+                    th:if="${posts.hasPrevious() }">
+                    <a th:href="@{${posts.prevUrl}}">
+                        <span>上一页</span>
+                    </a>
+                </li>
+                <li class="page-item page-previous"
+                    th:if="${posts.hasNext() }">
+                    <a th:href="@{${posts.nextUrl}}">
+                        <span>下一页</span>
+                    </a>
+                </li>
+            </ul>
+        </article>
+    </div>
