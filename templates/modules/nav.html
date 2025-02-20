@@ -1,10 +1,122 @@
 <div class="main">
-<div class="header">
-<img th:if="${not #strings.isEmpty(theme.config.info_card.web_info_img)} or ${not #strings.isEmpty(site.logo)}" th:src="${theme.config.info_card.web_info_img ?: site.logo}" width="80" height="80" alt=""/>
-<div class="site-description">
-<h2><span th:text="${theme.config.info_card.web_info_text}"></span></h2>
-<nav class="nav social"><ul class="flat"><a th:if="${not #strings.isEmpty(theme.config.info_card.web_info_bili)}" th:href="${theme.config.info_card.web_info_bili}" title="哔哩哔哩" target="_blank"><i class="ri-bilibili-fill"></i></a><a th:if="${not #strings.isEmpty(theme.config.info_card.web_info_zhihu)}" th:href="${theme.config.info_card.web_info_zhihu}" title="知乎" target="_blank"><i class="ri-zhihu-line"></i></a><a th:if="${not #strings.isEmpty(theme.config.info_card.web_info_github)}" th:href="${theme.config.info_card.web_info_github}" title="GitHub" target="_blank"><i class="ri-github-line"></i></a><a th:if="${pluginFinder.available('PluginFeed')}" title="RSS" target="_blank" href="/rss.xml"><i class="ri-rss-fill"></i></a></ul></nav></div>
-<nav  class="nav" th:with="menu = ${menuFinder.getPrimary()}">
-<ul class="flat" th:with="menuItems = ${menu.menuItems}">
-<li th:each="menuItem : ${menu.menuItems}" class="dropdown"><a th:href="@{${menuItem.status.href}}"th:text="${menuItem.status.displayName}"th:target="${menuItem.spec.target?.value}" class="menu-item"></a><ul class="dropdown-content" th:if="${not #lists.isEmpty(menuItem.children)}"><li th:each="childMenuItem : ${menuItem.children}"><a th:href="@{${childMenuItem.status.href}}" th:text="${childMenuItem.status.displayName}"  th:target="${childMenuItem.spec.target?.value}"></a></li></ul></li>
-<li class="active ico-right" th:if="${pluginFinder.available('PluginSearchWidget')}"><a href="javascript:SearchWidget.open()" title="搜索" class="test"><i class="ri-search-line"></i></a></li></ul></nav></div><div id="config-status" th:style="'display:none;'" th:data-post-time-set="${theme.config.layout.post_time_set}"></div>
+  <div class="header">
+    <img
+      th:if="${not #strings.isEmpty(theme.config.info_card.web_info_img)} or ${not #strings.isEmpty(site.logo)}"
+      th:src="${theme.config.info_card.web_info_img ?: site.logo}"
+      width="80"
+      height="80"
+      alt=""
+    />
+    <div class="site-description">
+      <h2>
+        <span th:text="${theme.config.info_card.web_info_text}"></span>
+      </h2>
+      <nav class="nav social">
+        <ul class="flat">
+          <a
+            th:if="${not #strings.isEmpty(theme.config.info_card.web_info_bili)}"
+            th:href="${theme.config.info_card.web_info_bili}"
+            title="哔哩哔哩"
+            target="_blank"
+          >
+            <i class="ri-bilibili-fill"></i>
+          </a>
+          <a
+            th:if="${not #strings.isEmpty(theme.config.info_card.web_info_zhihu)}"
+            th:href="${theme.config.info_card.web_info_zhihu}"
+            title="知乎"
+            target="_blank"
+          >
+            <i class="ri-zhihu-line"></i>
+          </a>
+          <a
+            th:if="${not #strings.isEmpty(theme.config.info_card.web_info_github)}"
+            th:href="${theme.config.info_card.web_info_github}"
+            title="GitHub"
+            target="_blank"
+          >
+            <i class="ri-github-line"></i>
+          </a>
+          <a
+            th:if="${pluginFinder.available('PluginFeed')}"
+            title="RSS"
+            target="_blank"
+            href="/rss.xml"
+          >
+            <i class="ri-rss-fill"></i>
+          </a>
+        </ul>
+      </nav>
+    </div>
+    <nav class="nav" th:with="menu = ${menuFinder.getPrimary()}">
+      <ul class="flat" th:with="menuItems = ${menu.menuItems}">
+        <li th:each="menuItem : ${menu.menuItems}" class="dropdown">
+          <a th:href="@{${menuItem.status.href}}"
+             th:text="${menuItem.status.displayName}"
+             th:target="${menuItem.spec.target?.value}"
+             class="menu-item"
+          >
+          </a>
+          <ul class="dropdown-content" th:if="${not #lists.isEmpty(menuItem.children)}">
+            <li th:each="childMenuItem : ${menuItem.children}">
+              <a th:href="@{${childMenuItem.status.href}}"
+                 th:text="${childMenuItem.status.displayName}"
+                 th:target="${childMenuItem.spec.target?.value}"
+              >
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="active ico-right"
+          th:if="${pluginFinder.available('PluginSearchWidget')}"
+        >
+          <a
+            href="javascript:SearchWidget.open()"
+            title="搜索"
+            class="test"
+          >
+            <i class="ri-search-line"></i>
+          </a>
+        </li>
+        <li
+          class=" dropdown ico-right"
+        >
+          <a
+            id="dark-mode-toggle"
+            href="javascript:toggleDarkMode();"
+            title="夜间模式"
+            class="test"
+          >
+            <i id="dark-mode-toggle-moon" class="ri-moon-line" style="display: none"></i>
+            <i id="dark-mode-toggle-sun" class="ri-sun-line"></i>
+          </a>
+          <ul class="dropdown-content">
+            <li onclick="toggleDarkMode()" style="cursor: pointer; user-select: none">
+              <a
+                id="dark-mode-toggle-a"
+                title="夜间模式"
+                class="test"
+              >
+                夜间模式
+              </a>
+            </li>
+            <li onclick="toggleEyesGreen()" style="cursor: pointer; user-select: none">
+              <a
+                id="eyes-green-toggle-a"
+                title="护眼模式"
+                class="test"
+              >
+                护眼模式
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div id="config-status"
+       th:style="'display:none;'"
+       th:data-post-time-set="${theme.config.layout.post_time_set}"
+  >
+  </div>
