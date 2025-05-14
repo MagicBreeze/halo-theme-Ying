@@ -1,4 +1,12 @@
-<th:block th:fragment="comment(name,kind,group)"><th:block th:if="${haloCommentEnabled}"><div id="comment">
-<hr th:if="${haloCommentEnabled}" style="border-top: 1px dashed#dedede" />
-<p class="comment-p">评论</p><halo:comment th:attr="name=${name},kind=${kind},group=${group}" /></div></th:block>
-<th:block th:unless="${haloCommentEnabled}"><p class="no-comments">评论已关闭！</p></th:block></th:block>
+<th:block th:fragment="comment(name,kind,group)">
+    <th:block th:if="${haloCommentEnabled}">
+        <div id="comment">
+            <hr th:if="${haloCommentEnabled}" class="dark:!border-gray-300/50 border-dashed border-t !border-gray-300 my-5" />
+            <p class="item-a my-5">评论</p>
+            <halo:comment th:attr="name=${name},kind=${kind},group=${group}" />
+        </div>
+    </th:block>
+    <th:block th:unless="${haloCommentEnabled}">
+        <p class="no-comments">评论已关闭！</p>
+    </th:block>
+</th:block>

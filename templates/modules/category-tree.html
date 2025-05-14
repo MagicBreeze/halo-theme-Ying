@@ -1,0 +1,14 @@
+<ul th:fragment="next (categories)">
+    <li th:each="category : ${categories}"
+        th:class="${#strings.isEmpty(category.parentName)} ? '' : 'ml-5'">
+        <i class="ri-corner-down-right-line" th:if="${!#strings.isEmpty(category.parentName)}"></i>
+      <a th:href="@{${category.status.permalink}}"
+         class="text-sky-400 dark:text-sky-500 hover:underline ">
+        <span th:text="${category.spec.displayName}">分类名称</span>
+        <span th:text="|(${category.status.postCount != null ? category.status.postCount : 0})|"></span>
+      </a>
+      <ul th:if="${not #lists.isEmpty(category.children)}">
+        <th:block th:replace="~{modules/category-tree :: next (categories=${category.children})}"></th:block>
+      </ul>
+    </li>
+  </ul>
