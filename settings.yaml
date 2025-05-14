@@ -4,9 +4,11 @@ metadata:
   name: theme-Ying-setting
 spec:
   forms:
+    # 基础样式设置
     - group: layout
       label: 基础样式设置
       formSchema:
+        # 网站背景选择
         - $formkit: select
           name: header_background_type
           id: header_background_type
@@ -20,6 +22,8 @@ spec:
               value: image
             - label: 样式1
               value: style1
+
+        # 设置纯色背景颜色
         - $formkit: color
           if: "$get(header_background_type).value === manual"
           name: header_background
@@ -27,12 +31,16 @@ spec:
           key: header_background
           label: 设置背景颜色
           value: ffffff
+
+        # 设置图片背景
         - $formkit: attachment
           if: "$get(header_background_type).value === image"
           name: header_background_image
           id: header_background_image
           key: header_background_image
           label: 网站背景图片
+
+        # 设置样式1背景颜色
         - $formkit: color
           if: "$get(header_background_type).value === style1"
           name: header_background_style1
@@ -40,6 +48,16 @@ spec:
           key: header_background_style1
           label: 设置主题样式1背景颜色
           value: ffffff
+
+        # 图片懒加载占位符设置
+        - $formkit: attachment
+          name: web_loading_img
+          id: web_loading_img
+          key: web_loading_img
+          label: 图片懒加载占位符
+          value: /themes/theme-Ying/assets/images/loading.gif
+
+        # 首页文章缩略图设置
         - $formkit: select
           name: post_cover_set
           id: post_cover_set
@@ -51,6 +69,8 @@ spec:
               value: off
             - label: 开启
               value: open
+
+        # 文章发布时间格式设置
         - $formkit: select
           name: post_time_set
           id: post_time_set
@@ -62,6 +82,8 @@ spec:
               value: off
             - label: 英式[September 24, 2024]
               value: open
+
+        # 网站字体设置
         - $formkit: select
           name: web_font_set
           id: web_font_set
@@ -69,23 +91,47 @@ spec:
           label: 网站字体
           value: defaultfont
           options:
-            - label: 手动设置
+            - label: 自定义字体
               value: manual
             - label: 默认
               value: defaultfont
+            - label: MiSans字体
+              value: MiSans
+
+        # 手动设置字体链接
         - $formkit: text
           if: "$get(web_font_set).value === manual"
           name: web_font
           id: web_font
           key: web_font
           label: 请填入字体链接
+          value: 请填入字体链接
+        - $formkit: text
+          if: "$get(web_font_set).value === manual"
+          name: web_font_name
+          id: web_font_name
+          key: web_font_name
+          label: 填入字体引用名，在font-family处填写的名称
+          value: 
+
+        # 默认网站字体
         - $formkit: attachment
           if: "$get(web_font_set).value === defaultfont"
           name: web_font_default
           id: web_font_default
           key: web_font_default
           label: 默认网站字体
-          value: "/themes/theme-Ying/assets/font/test.woff2"
+          value: "/themes/theme-Ying/assets/font/result.css"
+        # Mi Sans
+        - $formkit: attachment
+          if: "$get(web_font_set).value === MiSans"
+          name: web_font_MiSans
+          id: web_font_MiSans
+          key: web_font_MiSans
+          label: Mi Sans VF字体
+          value: "https://cdn-font.hyperos.mi.com/font/css?family=MiSans_VF:VF:Chinese_Simplify,Latin&display=swap"
+
+        # CDN 设置
         - $formkit: select
           name: header_cdn
           id: header_cdn
@@ -97,31 +143,88 @@ spec:
               value: local
             - label: CDN链接
               value: cdn
+
+        # 填入CDN链接
         - $formkit: text
           if: "$get(header_cdn).value === cdn"
           name: header_cdn_link
           id: header_cdn_link
           key: header_cdn_link
           label: 填入CDN链接，食用方法：将主题下assets文件上传至你的COS、OSS或者其他CDN平台上，请确保该目录下所有文件皆被上传到位
+
+    # 信息面板设置
     - group: info_card
       label: 信息面板
       formSchema:
         - $formkit: text
           name: web_info_img
           label: 个人头像
+
         - $formkit: text
           name: web_info_text
           label: 个人签名
           value: 相逢何必曾相识
-        - $formkit: text
-          name: web_info_bili
-          label: 请填入哔哩哔哩链接 
-        - $formkit: text
-          name: web_info_zhihu
-          label: 请填入知乎链接 
-        - $formkit: text
-          name: web_info_github
-          label: 请填入GitHub链接 
+
+        - $formkit: repeater
+          name: socials
+          label: 社交账号
+          value: []
+          max: 6
+          min: 1
+          children:
+            - $formkit: select
+              name: enabled
+              id: enabled
+              label: 是否启用
+              options:
+                - label: 是
+                  value: true
+                - label: 否
+                  value: false
+            - $formkit: text
+              if: "$value.enabled === true"
+              name: icon
+              label: 图标名称
+              help: 请输入图标的类名，例如 ri-bilibili-fill 更多图标请移至https://remixicon.com/查找
+
+            - $formkit: text
+              if: "$value.enabled === true"
+              name: title
+              label: 社交平台名称
+              help: 例如 "哔哩哔哩" 或 "GitHub"
+
+            - $formkit: text
+              if: "$value.enabled === true"
+              name: url
+              label: 链接地址
+              help: 请输入完整的链接地址，例如 https://bilibili.com
+
+    - group: post_settings
+      label: 文章设置
+      formSchema:
+        - $formkit: select
+          name: post_copyright_enabled
+          id: post_copyright_enabled
+          key: post_copyright_enabled
+          label: 是否启用文章版权声明
+          value: open
+          options:
+            - label: 是
+              value: open
+            - label: 否
+              value: off
+        - $formkit: select
+          name: post_highlight_theme
+          id: post_highlight_theme
+          key: post_highlight_theme
+          label: 选择代码高亮样式
+          value: atom-one-dark.min.css
+          options:
+            - label: atom-one-dark.min.css
+              value: atom-one-dark.min.css
+            - label: atom-one-light.min.css
+              value: atom-one-light.min.css
+    # 页脚设置
     - group: footer_card
       label: 页脚设置
       formSchema:
@@ -129,20 +232,26 @@ spec:
           name: footer_time
           label: 建站日期
           value: 2018
+
         - $formkit: text
           name: footer_icp
           label: ICP备案链接
+
         - $formkit: text
           name: footer_ga
           label: 公安备案链接
+
         - $formkit: text
           label: 版权作者信息
           name: footer_copyright_name
           value: "Magic清风"
+
         - $formkit: text
           name: footer_copyright_url
           label: 版权作者信息链接地址
           value: "https://skylan.cc/"
+
+    # 我的设备设置
     - group: equipment_card
       label: 我的设备
       formSchema:
@@ -157,6 +266,8 @@ spec:
               value: item_off
             - label: 开启
               value: item_open
+
+        # 设备具体内容
         - $formkit: repeater
           if: $get(myitem).value === item_open
           name: features
@@ -167,13 +278,16 @@ spec:
             - $formkit: text
               name: title
               label: 名称
+
             - $formkit: text
               name: link
               label: 链接
+
             - $formkit: attachment
               name: image
               label: 图片
               placeholder: 尺寸 257px * 160px
+
             - $formkit: text
               name: description
               label: 描述
