@@ -1,0 +1,115 @@
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+  }
+  
+  code.hljs {
+    padding: 3px 5px;
+  }
+  
+  /* Catppuccin Latte Theme for highlight.js */
+  .hljs {
+    background: #eff1f5; /* base */
+    color: #4c4f69; /* text */
+  }
+  
+  /* Selection */
+  .hljs ::selection,
+  .hljs::selection {
+    background-color: #bcc0cc; /* surface1 */
+    color: #4c4f69; /* text */
+  }
+  
+  /* Comments */
+  .hljs-comment,
+  .hljs-quote {
+    color: #9ca0b0; /* overlay0 */
+    font-style: italic;
+  }
+  
+  /* Keywords */
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-addition {
+    color: #8839ef; /* mauve */
+  }
+  
+  /* Names */
+  .hljs-number,
+  .hljs-string,
+  .hljs-meta .hljs-meta-string,
+  .hljs-literal,
+  .hljs-doctag,
+  .hljs-regexp {
+    color: #40a02b; /* green */
+  }
+  
+  /* Title, Section */
+  .hljs-title,
+  .hljs-section {
+    color: #1e66f5; /* blue */
+  }
+  
+  /* Class, Template-tag */
+  .hljs-title.class_,
+  .hljs-title.class_.inherited__,
+  .hljs-template-tag {
+    color: #df8e1d; /* yellow */
+  }
+  
+  /* Function, Template-variable */
+  .hljs-title.function_,
+  .hljs-template-variable {
+    color: #04a5e5; /* sky */
+  }
+  
+  /* Attributes, Variables */
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-variable {
+    color: #179299; /* teal */
+  }
+  
+  /* Symbols, Links */
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-link {
+    color: #ea76cb; /* pink */
+  }
+  
+  /* Deleted */
+  .hljs-deletion {
+    color: #d20f39; /* red */
+  }
+  
+  /* Types */
+  .hljs-type,
+  .hljs-built_in,
+  .hljs-builtin-name {
+    color: #fe640b; /* peach */
+  }
+  
+  /* Meta */
+  .hljs-meta {
+    color: #dc8a78; /* rosewater */
+  }
+  
+  /* Emphasis */
+  .hljs-emphasis {
+    font-style: italic;
+  }
+  
+  /* Strong */
+  .hljs-strong {
+    font-weight: bold;
+  }
+  
+  /* Subst */
+  .hljs-subst {
+    color: #6c6f85; /* subtext0 */
+  }
+  
+  .hljs-ln-code {
+    padding-left: 8px !important;
+  } 

@@ -1,0 +1,115 @@
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/* Dracula Theme for highlight.js */
+.hljs {
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+/* Selection */
+.hljs ::selection,
+.hljs::selection {
+  background-color: #44475a;
+  color: #f8f8f2;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+  color: #6272a4;
+  font-style: italic;
+}
+
+/* Keywords */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-addition {
+  color: #ff79c6;
+}
+
+/* Names */
+.hljs-number,
+.hljs-string,
+.hljs-meta .hljs-meta-string,
+.hljs-literal,
+.hljs-doctag,
+.hljs-regexp {
+  color: #f1fa8c;
+}
+
+/* Title, Section */
+.hljs-title,
+.hljs-section {
+  color: #bd93f9;
+}
+
+/* Class, Template-tag */
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-template-tag {
+  color: #50fa7b;
+}
+
+/* Function, Template-variable */
+.hljs-title.function_,
+.hljs-template-variable {
+  color: #50fa7b;
+}
+
+/* Attributes, Variables */
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable {
+  color: #8be9fd;
+}
+
+/* Symbols, Links */
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link {
+  color: #ff79c6;
+}
+
+/* Deleted */
+.hljs-deletion {
+  color: #ff5555;
+}
+
+/* Types */
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #ffb86c;
+}
+
+/* Meta */
+.hljs-meta {
+  color: #6272a4;
+}
+
+/* Emphasis */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+/* Strong */
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Subst */
+.hljs-subst {
+  color: #f8f8f2;
+}
+
+.hljs-ln-code {
+  padding-left: 8px !important;
+} 
