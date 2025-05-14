@@ -1,4 +1,36 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = '归档 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="archives-content uk-animation-fade" itemprop="articleBody"><article><h2>归档：</h2><p th:text="|共有 ${archives.total} 篇文章|"></p><th:block th:each="archive : ${archives.items}"><h2 th:text="${archive.year}" class="archives-year-title"></h2>
-<div class="archives-item-content"><th:block th:each="month : ${archive.months}">
-<h3 th:text="|${month.month}月|" class="diy-h3-month"></h3>
-<li th:each="post : ${month.posts}"><span th:text="|${month.month}/${#dates.format(post.spec.publishTime,'dd')}|" class="articles_date_time"></span><a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}" class="a-archives"></a></li></div></th:block></article><ul th:if="${archives.hasPrevious() || archives.hasNext()}" class="index-pagination"><li th:if="${archives.hasPrevious()}" class="page-item page-previous"><a th:href="@{${archives.prevUrl}}"><span>上一页</span></a></li><li th:if="${archives.hasNext() }" class="page-item page-previous"><a th:href="@{${archives.nextUrl}}"><span>下一页</span></a></li></ul></div></th:block></html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = '归档 - ' + ${site.title}, content = ~{::content}, head = null,)}">
+<th:block th:fragment="content">
+    <div class="archives-content">
+        <article>
+            <h2 class="item-a">归档：</h2>
+            <p class="my-5" th:text="|共有 ${archives.total} 篇文章|"></p>
+            <th:block th:each="archive, archiveStat : ${archives.items}">
+                <h2 class="post-card" th:attr="style=|--delay:${archiveStat.index * 0.15}s;|" th:text="${archive.year}">
+                </h2>
+                <div class="list-none mb-5">
+                    <th:block th:each="month, monthStat : ${archive.months}">
+                        <h3 class="post-card my-5"
+                            th:attr="style=|--delay:${(archiveStat.index * 0.15) + (monthStat.index * 0.05) + 0.05}s;|"
+                            th:text="|${month.month}月|"></h3>
+                        <li th:each="post, postStat : ${month.posts}" class="post-card"
+                            th:attr="style=|--delay:${(archiveStat.index * 0.15) + (monthStat.index * 0.05) + (postStat.index * 0.05) + 0.1}s;|">
+                            <span class="archives-li"
+                                th:text="|${month.month}/${#dates.format(post.spec.publishTime,'dd')}|"></span>
+                            <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"
+                                class="text-sm hover:underline"></a>
+                        </li>
+                    </th:block>
+                </div>
+            </th:block>
+        </article>
+
+        <ul th:if="${archives.hasPrevious() || archives.hasNext()}" class="flex justify-between pt-2">
+            <li th:if="${archives.hasNext() }"><a th:href="@{${archives.nextUrl}}"><span>下一页</span></a></li>
+            <li th:if="${archives.hasPrevious()}"><a th:href="@{${archives.prevUrl}}"><span>上一页</span></a></li>
+        </ul>
+    </div>
+</th:block>
+
+</html>

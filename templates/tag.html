@@ -1,6 +1,23 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = '标签：' + ${tag.spec.displayName} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="cate-content uk-animation-fade" itemprop="articleBody"><article>
-<h2 th:text="|标签：${tag.spec.displayName}|"></h2><p th:text="|共有 ${tag.status.postCount} 篇文章|"></p>
-<ul><li th:each="post : ${posts.items}"><span th:text="|${#dates.format(post.spec.publishTime,'YYYY/MM/dd')}|" class="articles_date_time"></span><a th:text="${post.spec.title}" th:href="${post.status.permalink}"></a></li></ul>
-<ul th:if="${posts.hasPrevious() || posts.hasNext()}" class="index-pagination">
-<li th:if="${posts.hasPrevious() }" class="page-item page-previous"><a th:href="@{${posts.prevUrl}}"><span>上一页</span></a></li>
-<li th:if="${posts.hasNext() }" class="page-item page-previous"><a th:href="@{${posts.nextUrl}}"><span>下一页</span></a></li></ul></article></div></th:block></html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = '标签：' + ${tag.spec.displayName} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
+<th:block th:fragment="content">
+    <div class="tag-content">
+        <article>
+            <h2 class="item-a" th:text="|标签：${tag.spec.displayName}|"></h2>
+            <p class="my-5" th:text="|共有 ${tag.status.postCount} 篇文章|"></p>
+            <ul>
+                <li th:each="post : ${posts.items}"><span
+                        th:text="|${#dates.format(post.spec.publishTime,'YYYY/MM/dd')}|" class="archives-li"></span><a
+                        th:text="${post.spec.title}" th:href="${post.status.permalink}"
+                        class="text-sm hover:underline"></a></li>
+            </ul>
+            <ul th:if="${posts.hasPrevious() || posts.hasNext()}" class="flex justify-between pt-2">
+                <li th:if="${posts.hasPrevious() }"><a th:href="@{${posts.prevUrl}}"><span>上一页</span></a></li>
+                <li th:if="${posts.hasNext() }"><a th:href="@{${posts.nextUrl}}"><span>下一页</span></a></li>
+            </ul>
+        </article>
+    </div>
+</th:block>
+
+</html>

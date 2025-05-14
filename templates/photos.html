@@ -2,19 +2,23 @@
 <html xmlns:th="https://www.thymeleaf.org"
     th:replace="~{modules/layout :: html(title = '相册 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
 <th:block th:fragment="content">
-    <div class="moment-content uk-animation-fade" itemprop="articleBody">
+    <div class="photos-content">
         <th:block th:each="group : ${groups}">
-    <h2 th:text="${group.spec.displayName}"></h2>
-    <div class="photo-img-box">
-        <div th:each="photo : ${group.photos}" class="p-in-box">
-            <img class="p-in-img lazyload" 
-            src=""
+    <h2 class="item-a" th:text="|${group.spec.displayName}(${group.status.photoCount})|"></h2>
+    <div class="medium-box">
+        <div class="medium-inner" th:each="photo : ${group.photos}">
+            <img
+            class="lazyload medium-item-box"
+            th:src="${theme.config.layout.web_loading_img}"
             srcset=""
-            th:data-src="${photo.spec.url}"
-            th:data-srcset="|${thumbnail.gen(photo.spec.url, 's')} 400w|"
-            sizes="(max-width: 1600px) 100vw, 1600px" th:alt="${photo.spec.displayName}">
+            th:data-srcset="|${thumbnail.gen(photo.spec.url, 's')} 400w,
+                        ${thumbnail.gen(photo.spec.url, 'm')} 800w,
+                        ${thumbnail.gen(photo.spec.url, 'l')} 1200w|"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            th:alt="${photo.spec.displayName}"
+          />
+          </div>
         </div>
-    </div>
 </th:block>
     </div>
 </th:block>

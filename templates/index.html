@@ -1,4 +1,32 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org" th:replace="~{modules/layout :: html(title = ${site.title}, content = ~{::content},hero = null,head = null, footer = null,)}"><th:block th:fragment="content"><div class="recent-posts section uk-animation-fade"><article>
-<h2 class="section-header">随笔<i class="ri-quill-pen-line"></i></h2>
-<div th:each="post : ${posts.items}" class="posts"><div th:if="${theme.config.layout.post_cover_set == 'open' and !#strings.isEmpty(post.spec.cover)}" class="post-cover"><img class="lazyload" scr="" srcset="" th:data-srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w|" sizes="(max-width: 1600px) 100vw, 1600px"></div><div class="post"><div th:if="${theme.config.layout.post_time_set == 'open'}" th:data-date="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}" class="time"></div><div th:unless="${theme.config.layout.post_time_set == 'open'}" th:text="${#dates.format(post.spec.publishTime,'MMMM dd, yyyy')}" class="time"></div><a th:href="@{${post.status.permalink}}"><span th:if="${post.spec.pinned}" th:text="[置顶]" class="post-top"></span><span th:text="${post.spec.title}"></span></a></div></div>
-<ul th:if="${posts.hasPrevious() || posts.hasNext()}" class="index-pagination"><li th:if="${posts.hasNext() }" class="page-item page-previous"><a th:href="@{${posts.nextUrl}}"><span>下一页</span></a></li><li th:if="${posts.hasPrevious() }" class="page-item page-previous"><a th:href="@{${posts.prevUrl}}"><span>上一页</span></a></li></ul></article></div></th:block></html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: html(title = ${site.title}, content = ~{::content}, head = null)}">
+<th:block th:fragment="content">
+  <div>
+    <h2 class="mb-5 !text-sm text-gray-400 !font-bold dark:text-gray-300">随笔<i class="ri-quill-pen-line"></i></h2>
+    <div th:each="post, iterStat : ${posts.items}" class="flex gap-2.5 items-start post-card"
+      th:attr="style=|--delay:${iterStat.index * 0.05}s;|">
+      <div th:if="${theme.config.layout.post_cover_set == 'open' and !#strings.isEmpty(post.spec.cover)}"
+        class="overflow-hidden size-11 rounded-sm">
+        <img class="lazyload w-full h-full object-cover" style="border-radius: inherit;"
+          th:src="${theme.config.layout.web_loading_img}" th:srcset="${theme.config.layout.web_loading_img}"
+          th:data-srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w|" sizes="(max-width: 1600px) 100vw, 1600px"
+          th:alt="${post.spec.title}">
+      </div>
+      <div class="flex grow flex-col justify-between mb-5">
+        <div th:if="${theme.config.layout.post_time_set == 'open'}" th:data-date="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}" class="time text-xs text-zinc-400 mb-0.5"></div>
+        <div th:unless="${theme.config.layout.post_time_set == 'open'}"
+          th:text="${#dates.format(post.spec.publishTime,'MMMM dd, yyyy')}" class="text-xs text-zinc-400 mb-0.5"></div>
+        <a th:href="@{${post.status.permalink}}" class="hover:underline">
+          <span th:if="${post.spec.pinned}" th:text="[置顶]" class="text-red-500"></span>
+          <span th:text="${post.spec.title}"></span></a>
+      </div>
+    </div>
+    <ul th:if="${posts.hasPrevious() || posts.hasNext()}" class="flex justify-between pt-2">
+      <li th:if="${posts.hasNext() }"><a th:href="@{${posts.nextUrl}}"><span>下一页</span></a></li>
+      <li th:if="${posts.hasPrevious() }"><a th:href="@{${posts.prevUrl}}"><span>上一页</span></a></li>
+    </ul>
+  </div>
+</th:block>
+
+</html>

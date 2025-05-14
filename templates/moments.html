@@ -1,7 +1,88 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = ${title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content">
-<div class="moment-content uk-animation-fade" itemprop="articleBody">
-<article><h2>动态</h2>
-<ul><li th:each="tag : ${tags}"><a class="a-tag" th:href="|/moments?tag=${tag.name}|" th:classappend="${#lists.contains(param.tag, tag.name) ? 'active' : ''}"><span th:text="|#${tag.name} ${tag.momentCount}|" class="tag"></span></a></li></ul>
-<div ><ul class="moment-box" x-data="upvote('moment','moment.halo.run','moments')"><li class="moment-list com-hr" th:each="moment : ${moments.items}" th:attr="x-data=|{name:'${moment.metadata.name}',showComment:false}|" th:with="content=${moment.spec.content}"><div class="user-header"><a th:with="authorPage=${#strings.append('/authors/',moment.owner?.name)}" th:href="@{${authorPage}}"><img class="avatar avatar-user" th:with="defaultAvatar=${#theme.assets('/images/logo.png')}, avatarUri=${#strings.defaultString(moment.owner?.avatar, defaultAvatar)}" th:src="${avatarUri}" th:srcset="|${thumbnail.gen(avatarUri, 's')} 400w|" th:alt="|@${moment.owner?.name}|"/></a>
-<div class="user-info"><a class="moment-user-name" th:with="authorPage=${#strings.append('/authors/',moment.owner?.name)}" th:href="@{${authorPage}}" th:text="${moment.owner?.displayName}"></a><relative-time th:if="${theme.config.layout.post_time_set == 'open'}" th:data-date="${#temporals.format(moment.spec.releaseTime, 'yyyy-MM-dd')}" class="moment-spec-time ex-time" tense="past" data-view-component="true"></relative-time><relative-time th:unless="${theme.config.layout.post_time_set == 'open'}" th:text="${#temporals.format(moment.spec.releaseTime, 'MMMM dd, yyyy')}" class="moment-spec-time ex-time" tense="past" data-view-component="true"></relative-time></div></div>
-<div class="moment-body"><div class="moment-content-box"><div class="momemt-content" th:utext="${moment.spec.content?.html}"></div><div th:with="medium=${moment.spec.content?.medium}"><div class="photo-img-box" th:if="${medium != null && #lists.size(medium) > 0}"><th:block th:each="media : ${medium}"><div class="p-in-box"><img class="p-in-img lazyload" th:if="${#strings.equals(media.type, 'PHOTO')}" th:data-src="${media?.url}" src="" srcset="" th:data-srcset="|${thumbnail.gen(media?.url, 's')} 400w|" sizes="(max-width: 1600px) 100vw, 1600px" alt="moment image"/></div></th:block></div></div></div><div  class="operation" ><span x-bind:class="{'text-red-700': upvoted(name)}" @click="handleUpvote(name)" style="margin-left: 5px; cursor: pointer;"><span class="iconify"><svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" x-show="upvoted(name)" style="color:#F44336"><path fill="currentColor" d="m12.1 18.55l-.1.1l-.11-.1C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5c0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" x-show="!upvoted(name)"><path fill="currentColor" d="m12.1 18.55l-.1.1l-.11-.1C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5c0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z"/></svg></span> <span class="ml-1"th:attr="data-upvote-moment-name=${moment.metadata.name}"th:text="${moment.stats.upvote}"></span></span><span x-on:click="showComment = !showComment" style="margin-left: 5px; cursor: pointer;"> <span class="iconify"><svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24"><path fill="currentColor" d="M9 22a1 1 0 0 1-1-1v-3H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6.1l-3.7 3.71c-.2.19-.45.29-.7.29H9m1-6v3.08L13.08 16H20V4H4v12h6Z"/></svg></span> <span th:text="${moment.stats.approvedComment}"></span></span><div class="moment-comment mt-2" x-show="showComment"><halo:comment group="moment.halo.run"kind="Moment"th:attr="name=${moment.metadata.name}"colorScheme="commentColorScheme"/></div></div></div></li></ul><ul th:if="${moments.hasPrevious() || moments.hasNext()}" class="index-pagination"><li th:if="${moments.hasPrevious}" class="page-item page-previous"><a th:href="@{${moments.prevUrl}}"><span>上一页</span></a></li><li class="page-item page-previous"><a th:href="@{${moments.nextUrl}}"><span>下一页</span></a></li></ul></div></article></div></th:block></html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = ${title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
+<th:block th:fragment="content">
+    <h2 class="item-a">动态</h2>
+    <div class="moment-content">
+        <ul class="flex justify-start my-5">
+            <li th:each="tag : ${tags}">
+                <a class="!text-sky-400 bg-sky-100 rounded-sm mr-2 p-0.5 hover:underline dark:bg-sky-900 dark:!text-sky-500"
+                    th:href="|/moments?tag=${tag.name}|"
+                    th:classappend="${#lists.contains(param.tag, tag.name) ? 'active' : ''}">
+                    <span th:text="|#${tag.name}(${tag.momentCount})|"></span>
+                </a>
+            </li>
+        </ul>
+        <div class="moment-box">
+            <ul x-data="upvote('moment','moment.halo.run','moments')">
+                <li th:each="moment,momentStat : ${moments.items}" th:with="content=${moment.spec.content}" class="py-5 info-hr post-card"
+                th:attr="x-data=|{name:'${moment.metadata.name}', showComment: false}|, style=|--delay:${momentStat.index * 0.05}s;|">
+                    <div class="flex items-center">
+                        <a class="hover:underline"
+                            th:with="authorPage=${#strings.append('/authors/',moment.owner?.name)}"
+                            th:href="@{${authorPage}}"><img class="size-11 rounded-sm mr-1.5"
+                                th:with="defaultAvatar=${#theme.assets('/images/logo.png')}, avatarUri=${#strings.defaultString(moment.owner?.avatar, defaultAvatar)}"
+                                th:src="${avatarUri}" th:srcset="|${thumbnail.gen(avatarUri, 's')} 400w|"
+                                th:alt="|@${moment.owner?.name}|" /></a>
+                        <div class="flex flex-col justify-between">
+                            <a class="hover:underline"
+                                th:with="authorPage=${#strings.append('/authors/',moment.owner?.name)}"
+                                th:href="@{${authorPage}}" th:text="${moment.owner?.displayName}"></a><span
+                                th:if="${theme.config.layout.post_time_set == 'open'}"
+                                th:data-date="${#temporals.format(moment.spec.releaseTime, 'yyyy-MM-dd')}"
+                                class="text-xs ex-time text-zinc-400" tense="past"
+                                data-view-component="true"></span><span
+                                th:unless="${theme.config.layout.post_time_set == 'open'}"
+                                th:text="${#temporals.format(moment.spec.releaseTime, 'MMMM dd, yyyy')}"
+                                class="text-xs text-zinc-400" tense="past" data-view-component="true"></span>
+                        </div>
+                    </div>
+                    <div th:if="${not #strings.isEmpty(content.html)}" th:utext="${content.html}" class="my-5"></div>
+                    <div th:if="${not #lists.isEmpty(content.medium)}" class="medium-box">
+                    <th:block th:if="${not #lists.isEmpty(content.medium)}" th:each="momentItem : ${content.medium}">
+                            <div class="medium-inner">
+                                <img class="lazyload medium-item-box" th:if="${momentItem.type.name == 'PHOTO'}"
+                                    th:data-src="${momentItem?.url}" th:src="${theme.config.layout.web_loading_img}" srcset=""
+                                    th:data-srcset="|${thumbnail.gen(momentItem?.url, 's')} 400w|"
+                                    sizes="(max-width: 1600px) 100vw, 1600px" />
+                                <video class="lazyload medium-item-box" th:if="${momentItem.type.name == 'VIDEO'}"
+                                    th:src="${momentItem.url}"></video>
+                                <audio class="lazyload medium-item-box" th:if="${momentItem.type.name == 'AUDIO'}"
+                                    th:src="${momentItem.url}" controls="true"></audio>
+                            </div>
+                    </th:block>
+                </div>
+                    <div class="flex items-center gap-3">
+                        <div class="justify-center cursor-pointer items-center text-sm text-gray-400 transition-all hover:text-red-600"
+                            x-bind:class="{'text-red-500': upvoted(name)}" @click="handleUpvote(name)">
+                            <i x-show="upvoted(name)" class="ri-heart-fill "></i>
+                            <i x-show="!upvoted(name)" class="ri-heart-line"></i>
+                            <span class="ml-0.5" th:attr="data-upvote-moment-name=${moment.metadata.name}"
+                                th:text="${moment.stats.upvote}">
+                            </span>
+                        </div>
+
+                        <div class="justify-center cursor-pointer items-center text-sm text-gray-400 transition-all hover:text-black dark:hover:text-gray-300"
+                            x-on:click="showComment = !showComment">
+                            <i class="ri-message-3-line"></i>
+                            <span class="ml-0.5" th:text="${moment.stats.approvedComment}"> </span>
+                        </div>
+                    </div>
+                    <div class="mt-2" x-show="showComment">
+                        <halo:comment group="moment.halo.run" kind="Moment" th:attr="name=${moment.metadata.name}"
+                            colorScheme="'light'" />
+                    </div>
+                </li>
+            </ul>
+            <ul th:if="${moments.hasPrevious() || moments.hasNext()}" class="flex justify-between pt-2">
+                <li th:if="${moments.hasNext() }"><a th:href="@{${moments.nextUrl}}"><span>下一页</span></a></li>
+                <li th:if="${moments.hasPrevious() }"><a th:href="@{${moments.prevUrl}}"><span>上一页</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</th:block>
+
+</html>

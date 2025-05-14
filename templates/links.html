@@ -1,4 +1,40 @@
-<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org"th:replace="~{modules/layout :: html(title = '友链 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"><th:block th:fragment="content"><div class="post-content uk-animation-fade" itemprop="articleBody"><article><th:block th:each="group : ${groups}" th:if="${#annotations.getOrDefault(group, 'hide','false') == 'false'}">  
-<h2>[[${group.spec.displayName}]]</h2>
-<div class="links"><div th:each="link : ${group.links}" class="link-box" th:if="${#annotations.getOrDefault(link, 'hide','false') == 'false'}"><div class="link-img-box"><img class="link-img lazyload" src="" th:data-src="${link.spec.logo}" th:alt="${link.spec.displayName}" /></div><a class="link-img-a" th:href="${link.spec.url}" target="_blank"><p th:text="${link.spec.displayName}"></p><p th:text="${link.spec.description}"></p></a></div></div></th:block>
-</article><th:block th:replace="~{modules/comment :: comment(name=${pluginName},kind='Plugin',group='plugin.halo.run')}"></th:block></div></th:block></html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = '友链 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
+<th:block th:fragment="content">
+    <div class="links-content">
+        <article>
+            <th:block th:each="group, groupStat : ${groups}"
+          th:if="${#annotations.getOrDefault(group, 'hide','false') == 'false'}">
+    <h2 class="item-a post-card"
+        th:attr="style=|--delay:${groupStat.index * 0.15}s;|"
+        th:text="${group.spec.displayName}">[[${group.spec.displayName}]]</h2>
+
+    <div class="links grid gap-3 my-5 md:grid-cols-2 lg:grid-cols-3">
+        <th:block th:each="link, linkStat : ${group.links}">
+            <div th:if="${#annotations.getOrDefault(link, 'hide','false') == 'false'}"
+                 class="link-box dark:bg-zinc-800 dark:!border-zinc-700 post-card"
+                 th:attr="style=|--delay:${(groupStat.index * 0.15) + (linkStat.index + 1) * 0.05}s;|">
+                <div class="link-img-box">
+                    <img class="link-img lazyload"
+                         th:src="${theme.config.layout.web_loading_img}"
+                         th:data-src="${link.spec.logo}"
+                         th:alt="${link.spec.displayName}" />
+                </div>
+                <a class="link-img-a hover:!underline"
+                   th:href="${link.spec.url}"
+                   th:title="${link.spec.description}"
+                   target="_blank">
+                    <p class="font-bold !mb-1" th:text="${link.spec.displayName}"></p>
+                    <p th:text="${link.spec.description}"></p>
+                </a>
+            </div>
+        </th:block>
+    </div>
+</th:block>
+        </article>
+        <th:block th:replace="~{modules/comment :: comment(name=${pluginName},kind='Plugin',group='plugin.halo.run')}">
+        </th:block>
+    </div>
+</th:block>
+</html>

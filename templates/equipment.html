@@ -2,23 +2,35 @@
 <html xmlns:th="https://www.thymeleaf.org"
     th:replace="~{modules/layout :: html(title = ${singlePage.spec.title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
 <th:block th:fragment="content" th:if="${theme.config.equipment_card.myitem == 'item_open'}">
-    <div class="post-content uk-animation-fade" itemprop="articleBody">
+    <div class="item-content">
         <article>
-            <h2 class="post-title" th:text="${singlePage.spec.title}"></h2>
-            <div class="equipment-item-content">
-            <div class="equipment-item-content-item" th:each="group : ${theme.config.equipment_card.features}">
-                <div class="equipment-item-content-item-cover">
-                    <img class="equipment-item-content-item-image lazyload" alt="game"
-                    th:data-src="${group?.image}" src="" srcset="" th:data-srcset="|${thumbnail.gen(group?.image, 's')} 400w|" sizes="(max-width: 1600px) 100vw, 1600px">
+            <h2 class="item-a" th:text="${singlePage.spec.title}"></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-3">
+                <div th:each="group,groupStat : ${theme.config.equipment_card.features}" class="rounded-lg border border-black overflow-hidden bg-white min-h-[400px] relative dark:bg-gray-800 dark:border-gray-700 post-card" th:attr="style=|--delay:${groupStat.index * 0.15}s;|">
+                    <div class="w-full h-[200px] bg-gray-100 flex justify-center dark:bg-gray-700">
+                        <img class="object-cover w-full h-full lazyload" alt="game" 
+                             th:data-src="${group?.image}" th:src="${theme.config.layout.web_loading_img}" 
+                             th:data-srcset="|${thumbnail.gen(group?.image, 's')} 400w|" 
+                             sizes="(max-width: 1600px) 100vw, 1600px">
+                    </div>
+                    <div class="p-4 mt-3 dark:text-gray-300">
+                        <div class="text-xl font-bold mb-2 whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer hover:text-blue-500 dark:hover:text-blue-400" th:text="${group.title}"></div>
+                        <div class="text-sm text-gray-600 mb-3 whitespace-nowrap overflow-hidden text-ellipsis dark:text-gray-400" th:text="${group.specification}"></div>
+                        <div class="text-base text-gray-600 line-clamp-3 dark:text-gray-400" th:text="${group.description}" th:aria-describedby="${group.description}"></div>
+                        <div class="absolute bottom-4 left-0 w-full px-4">
+                            <a th:href="${group.link}" target="_blank" class="inline-block">
+                                <button class="bg-black text-white py-1 px-3 rounded hover:bg-gray-700 transition-colors duration-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+                                    详情
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="equipment-item-content-item-info">
-                    <div class="equipment-item-content-item-name"><span th:text="${group.title}"></span></div>
-                    <div class="equipment-item-content-item-specification"></div>
-                    <div class="equipment-item-content-item-description"><span th:text="${group.description}"></span></div>
-                    <div class="equipment-item-content-item-toolbar"><div class="equipment-item-content-item-toolbar"><a th:href="${group.link}" target="_blank"><input class="button-primary button-small" type="button" value="详情"></a></div></div></div></div> </div> 
-            <div th:utext="${singlePage.content.content}"></div>
+            </div>
+            <div th:utext="${singlePage.content.content}" class="dark:text-gray-300"></div>
             <th:block th:replace="~{modules/comment :: comment(name=${singlePage.metadata.name},kind='SinglePage',group='content.halo.run')}"></th:block>
         </article>
     </div>
 </th:block>
+
 </html>
