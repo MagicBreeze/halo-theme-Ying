@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+.hbefore{
+    @apply content-['#'] 
+}
+.footercolor{
+    @apply dark:!text-gray-300;
+}
+.postnext{
+    @apply py-0.5 px-2 bg-zinc-800 text-white rounded-sm hover:bg-zinc-700 transition duration-300 ease-in-out;
+}
+.navh{
+    @apply flex justify-between items-center w-full;
+}
+.navli{
+    @apply items-center justify-center;
+}
+.medium-box {
+    @apply my-5 grid grid-cols-3 gap-2.5 box-border;
+}
+
+.medium-inner {
+    @apply relative w-full aspect-[1/1] overflow-hidden rounded-[5px]; /* 固定宽高比为 1:1 */
+}
+
+.medium-item-box {
+    @apply w-full h-full object-cover; /* 确保图片填满容器并保持宽高比 */
+}
