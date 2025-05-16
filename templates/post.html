@@ -39,11 +39,7 @@
                 <li class="!list-none !m-0 bg-zinc-800 text-gray-100 rounded-sm !py-0.5 !px-2 transition duration-200 ease-in-out hover:bg-zinc-700 hover:text-gray-50"
                     th:if="${postCursor.hasNext()}"><a th:href="@{${postCursor.next.status.permalink}}"
                         th:title="${postCursor.next.spec.title}"><span>下一篇</span></a></li>
-            </ul>
-
-            <th:block
-                th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}">
-            </th:block>
+            </ul><th:block th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}"></th:block>
         </article>
     </div>
 </th:block>
