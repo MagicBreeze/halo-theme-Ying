@@ -5,8 +5,5 @@
             <p class="item-a my-5">评论</p>
             <halo:comment th:attr="name=${name},kind=${kind},group=${group}" />
         </div>
-    </th:block>
-    <th:block th:unless="${haloCommentEnabled}">
-        <p class="no-comments">评论已关闭！</p>
-    </th:block>
+    </th:block><div th:unless="${haloCommentEnabled}" ><p th:if="${theme.config.post_settings.post_comment_enabled == 'open'}" class="my-5">评论已关闭！</p></div>
 </th:block>

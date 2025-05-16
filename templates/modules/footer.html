@@ -4,7 +4,7 @@
         <p> © [[${theme.config.footer_card.footer_time}]] - <span id="currentYear"></span> <a class="footercolor" th:href="${theme.config.footer_card.footer_copyright_url}" target="_blank"><span th:text="${theme.config.footer_card.footer_copyright_name}"></span></a></p>
         <p>Powered by <a class="footercolor" href="https://www.halo.run/">Halo</a> Theme by <a class="footercolor" href="https://skylan.cc">Ying</a></p>
         <p><a class="footercolor" href="https://beian.miit.gov.cn/" target="_blank"><span th:text="${theme.config.footer_card.footer_icp}"></span></a></p>
-        <p><a class="footercolor flex items-center justify-end gap-1" href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank"><img class="h-3 w-3" th:src="@{/assets/images/beian.png}" th:alt="公安备案"><span th:text="${theme.config.footer_card.footer_ga}"></span></a></p>
+        <p><a class="footercolor flex items-center justify-end gap-1" href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank"><img th:if="${not #strings.isEmpty(theme.config.footer_card.footer_ga)}" class="h-3 w-3" th:src="@{/assets/images/beian.png}" th:alt="公安备案"><span th:text="${theme.config.footer_card.footer_ga}"></span></a></p>
     </nav><halo:footer />
 </footer>
 </main>
