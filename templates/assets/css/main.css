@@ -277,7 +277,7 @@ table code,
 ul li code {
     background: var(--tag-bg);
     color: #2196f3;
-    padding: 0rem .3rem;
+    padding: .0rem .3rem;
     border-radius: 4px;
     white-space: break-spaces;
 }
