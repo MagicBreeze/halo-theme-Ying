@@ -199,6 +199,7 @@ spec:
               label: 链接地址
               help: 请输入完整的链接地址，例如 https://bilibili.com
 
+# 文章设置
     - group: post_settings
       label: 文章设置
       formSchema:
@@ -207,6 +208,17 @@ spec:
           id: post_copyright_enabled
           key: post_copyright_enabled
           label: 是否启用文章版权声明
+          value: open
+          options:
+            - label: 是
+              value: open
+            - label: 否
+              value: off
+        - $formkit: select
+          name: post_comment_enabled
+          id: post_comment_enabled
+          key: post_comment_enabled
+          label: 是否启用文章评论关闭提示
           value: open
           options:
             - label: 是
@@ -242,13 +254,13 @@ spec:
           label: 公安备案链接
 
         - $formkit: text
-          label: 版权作者信息
+          label: 网站版权作者信息
           name: footer_copyright_name
           value: "Magic清风"
 
         - $formkit: text
           name: footer_copyright_url
-          label: 版权作者信息链接地址
+          label: 网站版权作者信息链接地址
           value: "https://skylan.cc/"
 
     # 我的设备设置
